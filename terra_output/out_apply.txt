@@ -1,0 +1,131 @@
+PS D:\65315147\Devops\devops_quiz-main> terraform apply -auto-approve   
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # docker_container.my_container will be created
+  + resource "docker_container" "my_container" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (known after apply)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = "node-myweb-app:latest"
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = "my-myweb-app"
+      + network_data                                = (known after apply)
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "no"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels (known after apply)
+
+      + ports {
+          + external = 3000
+          + internal = 3000
+          + ip       = "0.0.0.0"
+          + protocol = "tcp"
+        }
+    }
+
+  # docker_image.my_app will be created
+  + resource "docker_image" "my_app" {
+      + id          = (known after apply)
+      + image_id    = (known after apply)
+      + name        = "node-myweb-app:latest"
+      + repo_digest = (known after apply)
+    }
+
+  # null_resource.execute_script will be created
+  + resource "null_resource" "execute_script" {
+      + id = (known after apply)
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+null_resource.execute_script: Creating...
+null_resource.execute_script: Provisioning with 'local-exec'...
+null_resource.execute_script (local-exec): Executing: ["cmd" "/C" "powershell.exe ./buildImg.ps1"]
+null_resource.execute_script (local-exec): #0 building with "desktop-linux" instance using docker driver
+
+null_resource.execute_script (local-exec): #1 [internal] load build definition from Dockerfile
+null_resource.execute_script (local-exec): #1 transferring dockerfile: 368B done
+null_resource.execute_script (local-exec): #1 DONE 0.0s
+
+null_resource.execute_script (local-exec): #2 [internal] load metadata for docker.io/library/alpine:3.21
+null_resource.execute_script (local-exec): #2 DONE 0.0s
+
+null_resource.execute_script (local-exec): #3 [internal] load .dockerignore
+null_resource.execute_script (local-exec): #3 transferring context: 2B done
+null_resource.execute_script (local-exec): #3 DONE 0.0s
+
+null_resource.execute_script (local-exec): #4 [1/5] FROM docker.io/library/alpine:3.21@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c
+null_resource.execute_script (local-exec): #4 resolve docker.io/library/alpine:3.21@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c 0.0s done
+null_resource.execute_script (local-exec): #4 DONE 0.0s
+
+null_resource.execute_script (local-exec): #5 [internal] load build context
+null_resource.execute_script (local-exec): #5 transferring context: 108.84kB 0.1s done
+null_resource.execute_script (local-exec): #5 DONE 0.1s
+
+null_resource.execute_script (local-exec): #6 [2/5] RUN apk update && apk add --no-cache nodejs npm
+null_resource.execute_script (local-exec): #6 CACHED
+
+null_resource.execute_script (local-exec): #7 [3/5] WORKDIR /app
+null_resource.execute_script (local-exec): #7 CACHED
+
+null_resource.execute_script (local-exec): #8 [4/5] COPY . .
+null_resource.execute_script (local-exec): #8 DONE 0.6s
+
+null_resource.execute_script (local-exec): #9 [5/5] RUN npm install
+null_resource.execute_script (local-exec): #9 0.849
+null_resource.execute_script (local-exec): #9 0.849 up to date, audited 70 packages in 564ms
+null_resource.execute_script (local-exec): #9 0.849
+null_resource.execute_script (local-exec): #9 0.849 14 packages are looking for funding
+null_resource.execute_script (local-exec): #9 0.849   run `npm fund` for details
+null_resource.execute_script (local-exec): #9 0.850
+null_resource.execute_script (local-exec): #9 0.850 found 0 vulnerabilities
+null_resource.execute_script (local-exec): #9 DONE 0.9s
+
+null_resource.execute_script (local-exec): #10 exporting to image
+null_resource.execute_script (local-exec): #10 exporting layers
+null_resource.execute_script (local-exec): #10 exporting layers 1.4s done
+null_resource.execute_script (local-exec): #10 exporting manifest sha256:559601127b4c5cc82ef70ebd41954b37e5569dd882d1818ccdfc5bc3fdf1b9fa 0.0s done
+null_resource.execute_script (local-exec): #10 exporting config sha256:6eab0c2cb2418320eea0b7559979de6410149206c04c68632c2269840aa59a02 0.0s done
+null_resource.execute_script (local-exec): #10 exporting attestation manifest sha256:713d8373978bfa287f98e7d84885a4608ab5ac1a165e8ad3d7e5662e9f552b30 0.0s done
+null_resource.execute_script (local-exec): #10 exporting manifest list sha256:015f44484110a2ef8e6d08c610ced1eb899fabcd8d59166a39729658583d42f9 0.0s done
+null_resource.execute_script (local-exec): #10 naming to docker.io/library/node-myweb-app:latest
+null_resource.execute_script (local-exec): #10 naming to docker.io/library/node-myweb-app:latest done
+null_resource.execute_script (local-exec): #10 unpacking to docker.io/library/node-myweb-app:latest
+null_resource.execute_script (local-exec): #10 unpacking to docker.io/library/node-myweb-app:latest 0.3s done
+null_resource.execute_script (local-exec): #10 DONE 1.9s
+null_resource.execute_script (local-exec): Docker image 'node-myweb-app' built successfully.
+null_resource.execute_script: Creation complete after 5s [id=830283766011376524]
+docker_image.my_app: Creating...
+docker_image.my_app: Creation complete after 0s [id=sha256:015f44484110a2ef8e6d08c610ced1eb899fabcd8d59166a39729658583d42f9node-myweb-app:latest]
+docker_container.my_container: Creating...
+docker_container.my_container: Creation complete after 1s [id=c4f7ec495a46bb624cb48fea2a78c13dabd1a75e190b25f589f659c67514a0fc]
+
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
